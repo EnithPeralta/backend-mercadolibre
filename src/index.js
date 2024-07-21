@@ -25,8 +25,10 @@ const corsOptions = {
     optionsSuccessStatus: 200
   };
   app.use(cors(corsOptions));
-
-app.get('/', (req,res) => {
+  
+app.get('/', (req,res,next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:49310');
+  next();
     res.send('Welcome to my API');
 });
 mongoose.connect(process.env.MONGODB_URI)
