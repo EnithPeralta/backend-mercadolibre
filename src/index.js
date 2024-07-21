@@ -1,6 +1,7 @@
 import express from "express"
 import mongoose from "mongoose";
 import { config } from "dotenv";
+import cors from 'cors';
 config();
 import userRoutes from "./routers/user.routes.js";
 import productRoutes from './routers/product.routes.js'
@@ -17,8 +18,15 @@ app.use('/api', productRoutes)
 app.use('/api', categoryRoutes)
 app.use('/api', storageRoutes)
 
+const corsOptions = {
+    origin: 'http://localhost:49310',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    optionsSuccessStatus: 200
+  };
+  app.use(cors(corsOptions));
 
-app.get('/', (req, res) => {
+app.get('/', (req,res) => {
     res.send('Welcome to my API');
 });
 mongoose.connect(process.env.MONGODB_URI)
