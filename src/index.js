@@ -18,17 +18,13 @@ app.use('/api', productRoutes)
 app.use('/api', categoryRoutes)
 app.use('/api', storageRoutes)
 
-const corsOptions = {
-    origin: 'http://localhost:49310',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    optionsSuccessStatus: 200
-  };
-  app.use(cors(corsOptions));
-  
-app.get('/', (req,res,next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:49310');
+app.use((res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
+});
+  
+app.get('/', (req,res) => {
     res.send('Welcome to my API');
 });
 mongoose.connect(process.env.MONGODB_URI)
