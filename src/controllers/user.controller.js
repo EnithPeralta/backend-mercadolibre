@@ -48,32 +48,28 @@ export const deleteUserId = async(req, res)=>{
 }
 
 export const putUser = async (req, res) => {
-  const { cedula, nombre, telefono, direccion, email, password } = req.body;
+const {nombre, email, password } = req.body;
 
-  try {
+try {
     const existingUser = await User.findOne({ email });
 
     if (!existingUser) {
-      return res.status(404).json({ message: 'User not found' });
+        return res.status(404).json({ message: 'User not found' });
     }
-
-    existingUser.cedula = cedula;
     existingUser.nombre = nombre;
-    existingUser.telefono = telefono;
-    existingUser.direccion = direccion;
     existingUser.email = email;
     existingUser.password = password;
 
     await existingUser.save();
 
     res.status(200).json({
-      message: 'User successfully updated',
-      user: existingUser
+    message: 'User successfully updated',
+    user: existingUser
     });
-  } catch (error) {
+} catch (error) {
     console.error('Error updating user:', error);
     res.status(500).json({ message: 'Error updating user' });
-  }
+}
 };
 
 
