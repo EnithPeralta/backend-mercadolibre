@@ -9,6 +9,7 @@ import categoryRoutes from './routers/category.routes.js'
 import storageRoutes from './routers/storage.routes.js'
 
 const app = express();  
+app.use(cors({origin:'*',credentials:true}))
 const port = process.env.PORT || 7000;
 
 app.use(express.json())
