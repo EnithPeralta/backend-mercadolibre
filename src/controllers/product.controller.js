@@ -54,11 +54,9 @@ export const updateProducts = async (req, res) => {
             { codigo, nombre, descripcion, precio, categoria, imagen },
             { new: true } 
         );
-
         if (!updatedProducts) {
             return res.status(404).json({ message: "Product not found" });
         }
-
         res.status(200).json(updatedProducts);
     } catch (error) {
         console.log("Error updating the product", error);
@@ -68,17 +66,17 @@ export const updateProducts = async (req, res) => {
 
 export const deleteProducts = async (req, res) => {
     try {
-        const { id } = req.params; 
-
-        const deletedProducts = await Product.findByIdAndDelete(id);
-
-        if (!deletedProducts) {
-            return res.status(404).json({ message: "Product not found" });
-        }
-
-        res.status(200).json({ message: "Product deleted successfully" });
+      const { id } = req.params;
+  
+      const deletedProducts = await Product.findOneAndDelete({ _id: id });
+  
+      if (!deletedProducts) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+  
+      res.status(200).json({ message: "Product deleted successfully" });
     } catch (error) {
-        console.log("Error deleting the product", error);
-        res.status(500).json({ message: "Error deleting the product" });
+      console.log("Error deleting the product", error);
+      res.status(500).json({ message: "Error deleting the product" });
     }
-};
+  };

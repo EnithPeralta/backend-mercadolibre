@@ -2,18 +2,27 @@ import { Storage } from '../models/storage.model.js';
 
 export const addStorage = async (req, res) => {
     try {
-        const { url, filename } = req.body;
-        const newStorage = new Storage({
-            url,
-            filename,
-        });
-        const savedStorage = await newStorage.save();
-        res.status(201).json(savedStorage);
+      console.log("req.body:", req.body);
+      const { url, filename } = req.body;
+      console.log("url:", url);
+      console.log("filename:", filename);
+  
+      if (!url || !filename) {
+        return res.status(400).json({ message: "Faltan campos requeridos" });
+      }
+  
+      const newStorage = new Storage({
+        url,
+        filename
+      });
+  
+      const savedStorage = await newStorage.save();
+      res.status(201).json(savedStorage);
     } catch (error) {
-        console.log("Error adding the storage", error);
-        res.status(500).json({ message: "Error adding the storage" });
+      console.log("Error adding the storage", error);
+      res.status(500).json({ message: "Error adding the storage" });
     }
-};
+  };
 
 export const getStorage = async(req,res)=>{
     try {
