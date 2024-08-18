@@ -6,7 +6,7 @@ import { addStorage,getStorage, getStorageById,updateStorage,deleteStorage} from
 //Add Storage
 storageRoutes.post('/storages', addStorage);
 //Get Storage
-storageRoutes.get('/storages', addStorage);
+storageRoutes.get('/storages', getStorage);
 //Get Storage Of Id
 storageRoutes.get('/storage/:id', getStorageById);
 //Put Storage Of Id
